@@ -5,7 +5,9 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
+
         <body className="loading">
+          <div id={"checkout"} />
           <Main />
           <NextScript />
         </body>

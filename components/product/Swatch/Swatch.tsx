@@ -13,7 +13,7 @@ interface Props {
   color?: string
 }
 
-const Swatch: FC<Omit<ButtonProps, 'variant'> & Props> = ({
+const Swatch: FC<Props & ButtonProps> = ({
   className,
   color = '',
   label,

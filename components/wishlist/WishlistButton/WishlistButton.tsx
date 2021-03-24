@@ -1,16 +1,16 @@
 import React, { FC, useState } from 'react'
 import cn from 'classnames'
-import { useUI } from '@components/ui'
+import type { ProductNode } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-products'
+import useAddItem from '@bigcommerce/storefront-data-hooks/wishlist/use-add-item'
+import useRemoveItem from '@bigcommerce/storefront-data-hooks/wishlist/use-remove-item'
+import useWishlist from '@bigcommerce/storefront-data-hooks/wishlist/use-wishlist'
+import useCustomer from '@bigcommerce/storefront-data-hooks/use-customer'
 import { Heart } from '@components/icons'
-import useAddItem from '@framework/wishlist/use-add-item'
-import useCustomer from '@framework/customer/use-customer'
-import useWishlist from '@framework/wishlist/use-wishlist'
-import useRemoveItem from '@framework/wishlist/use-remove-item'
-import type { Product, ProductVariant } from '@commerce/types'
+import { useUI } from '@components/ui/context'
 
 type Props = {
-  productId: Product['id']
-  variant: ProductVariant
+  productId: number
+  variant: NonNullable<ProductNode['variants']['edges']>[0]
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
 const WishlistButton: FC<Props> = ({
@@ -19,19 +19,16 @@ const WishlistButton: FC<Props> = ({
   className,
   ...props
 }) => {
-  const { data } = useWishlist()
   const addItem = useAddItem()
   const removeItem = useRemoveItem()
+  const { data } = useWishlist()
   const { data: customer } = useCustomer()
-  const { openModal, setModalView } = useUI()
   const [loading, setLoading] = useState(false)
-
-  // @ts-ignore Wishlist is not always enabled
+  const { openModal, setModalView } = useUI()
   const itemInWishlist = data?.items?.find(
-    // @ts-ignore Wishlist is not always enabled
     (item) =>
-      item.product_id === Number(productId) &&
-      (item.variant_id as any) === Number(variant.id)
+      item.product_id === productId &&
+      item.variant_id === variant?.node.entityId
   )
 
   const handleWishlistChange = async (e: any) => {
@@ -53,7 +50,7 @@ const WishlistButton: FC<Props> = ({
       } else {
         await addItem({
           productId,
-          variantId: variant?.id!,
+          variantId: variant?.node.entityId!,
         })
       }
 

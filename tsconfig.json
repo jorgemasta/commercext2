@@ -16,16 +16,16 @@
     "jsx": "preserve",
     "paths": {
       "@lib/*": ["lib/*"],
-      "@utils/*": ["utils/*"],
-      "@config/*": ["config/*"],
       "@assets/*": ["assets/*"],
+      "@config/*": ["config/*"],
       "@components/*": ["components/*"],
-      "@commerce": ["framework/commerce"],
+      "@utils/*": ["utils/*"],
       "@commerce/*": ["framework/commerce/*"],
-      "@framework": ["framework/bigcommerce"],
-      "@framework/*": ["framework/bigcommerce/*"]
+      "@commerce": ["framework/commerce"],
+      "@bigcommerce/storefront-data-hooks/*": ["framework/bigcommerce/*"],
+      "@bigcommerce/storefront-data-hooks": ["framework/bigcommerce"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": ["node_modules"]
 }

@@ -1,3 +1,3 @@
-import signupApi from '@framework/api/customers/signup'
+import signupApi from '@bigcommerce/storefront-data-hooks/api/customers/signup'
 
 export default signupApi()

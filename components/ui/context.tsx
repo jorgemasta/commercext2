@@ -8,7 +8,6 @@ export interface State {
   displayToast: boolean
   modalView: string
   toastText: string
-  userAvatar: string
 }
 
 const initialState = {
@@ -18,7 +17,6 @@ const initialState = {
   modalView: 'LOGIN_VIEW',
   displayToast: false,
   toastText: '',
-  userAvatar: '',
 }
 
 type Action =
@@ -57,14 +55,9 @@ type Action =
   | {
       type: 'SET_USER_AVATAR'
       value: string
-    }
+  }
 
-type MODAL_VIEWS =
-  | 'SIGNUP_VIEW'
-  | 'LOGIN_VIEW'
-  | 'FORGOT_VIEW'
-  | 'NEW_SHIPPING_ADDRESS'
-  | 'NEW_PAYMENT_METHOD'
+type MODAL_VIEWS = 'SIGNUP_VIEW' | 'LOGIN_VIEW' | 'FORGOT_VIEW'
 type ToastText = string
 
 export const UIContext = React.createContext<State | any>(initialState)
@@ -164,8 +157,7 @@ export const UIProvider: FC = (props) => {
   const openToast = () => dispatch({ type: 'OPEN_TOAST' })
   const closeToast = () => dispatch({ type: 'CLOSE_TOAST' })
 
-  const setUserAvatar = (value: string) =>
-    dispatch({ type: 'SET_USER_AVATAR', value })
+  const setUserAvatar = (value: string) => dispatch({ type: 'SET_USER_AVATAR', value })
 
   const setModalView = (view: MODAL_VIEWS) =>
     dispatch({ type: 'SET_MODAL_VIEW', view })
@@ -184,7 +176,7 @@ export const UIProvider: FC = (props) => {
       setModalView,
       openToast,
       closeToast,
-      setUserAvatar,
+      setUserAvatar
     }),
     [state]
   )

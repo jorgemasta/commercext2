@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import Link from 'next/link'
-import type { Product } from '@commerce/types'
 import { Grid } from '@components/ui'
 import { ProductCard } from '@components/product'
 import s from './HomeAllProductsGrid.module.css'
@@ -9,14 +8,10 @@ import { getCategoryPath, getDesignerPath } from '@lib/search'
 interface Props {
   categories?: any
   brands?: any
-  products?: Product[]
+  newestProducts?: any
 }
 
-const HomeAllProductsGrid: FC<Props> = ({
-  categories,
-  brands,
-  products = [],
-}) => {
+const Head: FC<Props> = ({ categories, brands, newestProducts }) => {
   return (
     <div className={s.root}>
       <div className={s.asideWrapper}>
@@ -53,15 +48,13 @@ const HomeAllProductsGrid: FC<Props> = ({
       </div>
       <div className="flex-1">
         <Grid layout="normal">
-          {products.map((product) => (
+          {newestProducts.map(({ node }: any) => (
             <ProductCard
-              key={product.path}
-              product={product}
+              key={node.path}
+              product={node}
               variant="simple"
-              imgProps={{
-                width: 480,
-                height: 480,
-              }}
+              imgWidth={480}
+              imgHeight={480}
             />
           ))}
         </Grid>
@@ -70,4 +63,4 @@ const HomeAllProductsGrid: FC<Props> = ({
   )
 }
 
-export default HomeAllProductsGrid
+export default Head
